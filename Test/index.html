@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>SRG Tools</title>
+        <style>
+            body { margin: 0; }
+            canvas { width: 100%; height: 100%; }
+            input {width: 90%;}
+            #container {position: relative;}
+            #container canvas,   #overlay { position: absolute;}   
+            #overlay {z-index: 1; width: 100%}
+
+            #loader {
+                border: 5px solid #f3f3f3; /* Light grey */
+                border-top: 5px solid #3d3d3d; /* Grey */
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                position: absolute; 
+                top: 50%;
+                left: 50%;
+                z-index: 2;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+
+        <link rel="stylesheet" type="text/css" href="style_research.css">
+		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Play&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 	<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet">
+	 	
+
+    </head>
+    <body>
+
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="../urban.html">Urban Algorithms</a>
+                <a href="../sustainability.html">Sustainability</a>
+                <a href="../formal.html">Formal Explorations</a>
+                <a href="../industrial.html">Industrial Design</a>
+                <a href="../communications.html">Design Communications</a>
+                <a href="../tools.html">Tools</a>
+            </div>
+        </div>
+
+        
+        <div id="nav">
+			<h1><a href="../index.html">SRG</a></h1>
+			<h1 class="title_desc"><a href="../index.html">Sordo Research Group</a></h1>
+			<span style="font-size:20px;cursor:pointer;margin-top: 60px; margin-left: 50px; word-spacing: 2px; letter-spacing: 1px;" onclick="openNav()">&#10095; Research</span>
+			<ul>
+				<li><a href="../project.html">Projects</a></li>
+				<li><a href="../group.html">Group</a></li>
+				<li><a style="font-weight: 1000; " href="../tools.html">-Tools-</a></li>
+				<li><a href="http://www.sordomadaleno.com/news">News</a></li>
+				<li><a href="http://www.sordomadaleno.com/jobs">Careers</a></li>
+				<li><a href="http://www.sordomadaleno.com/contact">Contact</a></li>
+
+			</ul>
+			
+		</div>
+		
+		
+		<div id="Gap" style= "height:60px"> </div> 
+
+        <div id="Gap" style= "height:20px"> </div> 
+
+        <div id="mySidepanel" class="sidepanel">
+            
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav_2()">&times;</a>
+
+            <div id="controls" style="padding: 20px">
+                <button class="inner" onclick="RhinoCompute.getAuthToken(false)" style="padding: 10px">Set Authorization</button>
+                    
+            </div>
+
+            <p style="font-size:20px; color: white; margin-top: 30px; margin-left: 20px; margin-bottom: 10px; word-spacing: 2px; letter-spacing: 1px;"> PARAMETERS </p>
+
+
+            <div id="overlay_2">
+                <div style="padding: 20px">
+                    <input type="range" id="ranura" name="ranura" min="0" max="10.00" value="2.00" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="ranura" style="color: white">Radius</label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="openbtn" onclick="openNav_2()">&#9776; </button> 
+
+
+
+
+
+
+		<div id="loader"></div> 
+        <div id="container">
+            <!--
+            <div id="overlay">
+                <div>
+                    <input type="range" id="ranura" name="ranura" min="0" max="10.00" value="2.00" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="ranura">Ranura</label>
+                </div>
+                <div>
+                    <input type="range" id="inclinacion" name="inclinacion" min="0" max="10.00" value="1.50" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="inclinacion">Slope</label>
+                </div>
+                <div>
+                    <input type="range" id="entrecalle" name="entrecalle" min="0" max="1.00" value="0.20" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="entrecalle">Entrecalle</label>
+                </div>
+                <div>
+                    <input type="range" id="exo" name="exo" min="0" max="1.00" value="0.70" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="exo">Exostructure</label>
+                </div>
+                <div>
+                    <input type="range" id="extrusion" name="extrusion" min="0" max="10.00" value="3.40" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="extrusion">Extrusion</label>
+                </div>
+
+            </div>    -->
+
+            <div id="glcanvas"></div>
+        </div>
+
+        <script type="text/javascript" src="https://threejs.org/build/three.js"></script>
+        <script type="text/javascript" src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+
+        <script src="https://files.mcneel.com/rhino3dm/js/latest/rhino3dm.js"></script>
+    	<script src="https://files.mcneel.com/rhino3dm/js/latest/compute.rhino3d.js"></script>
+
+
+        <!--
+        <script type="text/javascript" src="../../../resources/rhino3dm.js"></script>
+        <script type="text/javascript" src="../../../resources/compute.rhino3d.js"></script>  -->
+        <script type="text/javascript" src="app.js"></script>
+
+
+        <script>
+        function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+        }
+        </script>
+
+        <script> 
+
+            /* Set the width of the sidebar to 250px (show it) */
+            function openNav_2() {
+                document.getElementById("mySidepanel").style.width = "400px";
+            }
+
+            /* Set the width of the sidebar to 0 (hide it) */
+            function closeNav_2() {
+                document.getElementById("mySidepanel").style.width = "0";
+            }
+
+
+        </script>
+
+
+
+    </body>
+</html>
